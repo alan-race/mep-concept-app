@@ -1,4 +1,4 @@
-const CACHE = "mep-concept-v1.0.0";
+const CACHE = "mep-concept-design-tool-v1.0.4";
 const ASSETS = [
   "./", "./index.html", "./styles.css", "./app.js", "./calc.js",
   "./manifest.webmanifest", "./icons/icon-192.png", "./icons/icon-512.png"

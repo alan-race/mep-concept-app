@@ -1,6 +1,6 @@
 {
-  "name": "MEP Concept",
-  "short_name": "MEP Concept",
+  "name": "MEP Concept Design Tool",
+  "short_name": "MEP Concept Design Tool",
   "description": "Room-data-sheet based concept calculations for mechanical and electrical building services.",
   "id": "./",
   "start_url": "./",

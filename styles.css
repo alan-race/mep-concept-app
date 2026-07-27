@@ -23,7 +23,7 @@ body {
   background: linear-gradient(180deg, #e8f0f4 0, var(--bg) 280px);
 }
 button, input, select, textarea { font: inherit; }
-button { cursor: pointer; }
+button { cursor: pointer; touch-action: manipulation; }
 a { color: var(--brand-2); }
 
 .app-shell { min-height: 100vh; }

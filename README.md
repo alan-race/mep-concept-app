@@ -1,4 +1,4 @@
-# MEP Concept — Android-installable PWA
+# MEP Concept Design Tool — Android-installable PWA
 
 This is the Android-compatible port of the original SwiftUI concept application. It is a Progressive Web App (PWA): after it is placed on an HTTPS website, Android Chrome can install it with its own icon and standalone app window.
 

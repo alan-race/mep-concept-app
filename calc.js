@@ -1,4 +1,4 @@
-export const APP_VERSION = "1.0.0";
+export const APP_VERSION = "1.0.3";
 
 export const fixtureLibrary = [
   { id: "washbasin", name: "Washbasin", coldDesignFlowLps: 0.10, hotDesignFlowLps: 0.10, coldLoadingUnits: 1.0, hotLoadingUnits: 1.0, drainageDischargeUnits: 0.5 },

@@ -1,6 +1,6 @@
 {
-  "name": "mep-concept-pwa",
-  "version": "1.0.0",
+  "name": "mep-concept-design-tool-pwa",
+  "version": "1.0.4",
   "private": true,
   "type": "module",
   "scripts": {

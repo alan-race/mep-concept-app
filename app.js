@@ -88,7 +88,7 @@ function render() {
       <header class="topbar">
         <div class="brand">
           <div class="brand-mark">MEP</div>
-          <div><h1>MEP Concept</h1><small>${p ? esc(p.name) : 'Room-data-sheet concept design'}</small></div>
+          <div><h1>MEP Concept Design Tool</h1><small>${p ? esc(p.name) : 'Room-data-sheet concept design'}</small></div>
         </div>
         <div class="top-actions">
           <button class="btn ghost hidden" id="installButton" data-action="install"><span>Install app</span> ⬇</button>
@@ -103,7 +103,7 @@ function render() {
         ${navButton('standards', 'Basis & limits')}
       </nav>
       <main>${renderView()}</main>
-      <div class="footer-note">MEP Concept ${APP_VERSION} · Concept-stage calculations only · Verify every criterion before use in design</div>
+      <div class="footer-note">MEP Concept Design Tool ${APP_VERSION} · Concept-stage calculations only · Verify every criterion before use in design</div>
       ${state.draftRoom ? renderRoomModal() : ''}
       <input id="importFile" type="file" accept="application/json,.json" class="hidden">
     </div>`;
@@ -320,8 +320,8 @@ function renderRoomModal() {
     return `<div class="fixture"><label>${esc(def.name)}<span class="help">${def.coldLoadingUnits} CW LU · ${def.drainageDischargeUnits} DU</span></label><input type="number" min="0" step="1" data-room-fixture-id="${def.id}" value="${count}"></div>`;
   }).join('');
   return `<div class="modal-backdrop" data-action="close-modal-backdrop">
-    <section class="modal" role="dialog" aria-modal="true" aria-label="Room editor" onclick="event.stopPropagation()">
-      <header class="modal-head"><h2>${state.editingRoomId ? 'Edit room data sheet' : 'Add room data sheet'}</h2><button class="btn ghost icon" data-action="close-modal">✕</button></header>
+    <section class="modal" role="dialog" aria-modal="true" aria-label="Room editor">
+      <header class="modal-head"><h2>${state.editingRoomId ? 'Edit room data sheet' : 'Add room data sheet'}</h2><button type="button" class="btn ghost icon" data-action="close-modal" aria-label="Close room editor" title="Close">✕</button></header>
       <div class="modal-body"><div class="editor-layout">
         <div class="editor-sections">
           ${editorSection('Room details', true, `<div class="form-grid">${roomText('Room number','number',room.number)}${roomText('Room name','name',room.name,'span-2')}${roomText('Room type','type',room.type)}${roomNum('Area','areaM2',room.areaM2,'m²')}${roomNum('Height','heightM',room.heightM,'m')}${roomNum('Occupants','occupants',room.occupants,'people')}${roomNum('External wall area','externalWallAreaM2',room.externalWallAreaM2,'m²')}${roomNum('Glazing area','glazingAreaM2',room.glazingAreaM2,'m²')}${roomNum('Roof area','roofAreaM2',room.roofAreaM2,'m²')}${roomNum('Exposed floor area','exposedFloorAreaM2',room.exposedFloorAreaM2,'m²')}${roomTextarea('Notes','notes',room.notes)}</div>`) }
@@ -334,7 +334,7 @@ function renderRoomModal() {
         </div>
         <aside class="card live-results" id="liveResults">${liveResultsMarkup(result)}</aside>
       </div></div>
-      <footer class="modal-footer"><button class="btn secondary" data-action="close-modal">Cancel</button><button class="btn" data-action="save-room">Save room</button></footer>
+      <footer class="modal-footer"><button type="button" class="btn secondary" data-action="close-modal">Cancel</button><button type="button" class="btn" data-action="save-room">Save room</button></footer>
     </section>
   </div>`;
 }
@@ -431,7 +431,7 @@ function importJSONFile(file) {
       const raw = JSON.parse(reader.result);
       const imports = (Array.isArray(raw) ? raw : [raw]).map(ensureProjectShape).map(p => ({ ...p, id: uid(), name: `${p.name} (imported)`, modifiedAt: new Date().toISOString() }));
       state.projects.push(...imports); state.currentProjectId = imports[0].id; state.view = 'project'; saveState(); render(); toast('Project imported');
-    } catch (error) { alert(`The selected file is not a valid MEP Concept backup.\n\n${error.message}`); }
+    } catch (error) { alert(`The selected file is not a valid MEP Concept Design Tool backup.\n\n${error.message}`); }
   };
   reader.readAsText(file);
 }
@@ -453,6 +453,10 @@ $app.addEventListener('click', async event => {
   const target = event.target.closest('[data-action]');
   if (!target) return;
   const action = target.dataset.action;
+
+  // The backdrop is an ancestor of every control in the room editor. Only close
+  // when the backdrop itself—not one of its descendants—was tapped.
+  if (action === 'close-modal-backdrop' && event.target !== target) return;
 
   if (action === 'route') return route(target.dataset.view);
   if (action === 'new-project') {
@@ -511,6 +515,10 @@ $app.addEventListener('click', async event => {
   }
 });
 
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && state.draftRoom) closeRoom();
+});
+
 $app.addEventListener('input', event => {
   const input = event.target;
   const p = currentProject();
@@ -538,7 +546,7 @@ $app.addEventListener('change', event => {
 window.addEventListener('beforeinstallprompt', event => {
   event.preventDefault(); state.deferredPrompt = event; updateInstallButton();
 });
-window.addEventListener('appinstalled', () => { state.deferredPrompt = null; updateInstallButton(); toast('MEP Concept installed'); });
+window.addEventListener('appinstalled', () => { state.deferredPrompt = null; updateInstallButton(); toast('MEP Concept Design Tool installed'); });
 
 if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(console.error));
 

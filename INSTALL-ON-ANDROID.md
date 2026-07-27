@@ -1,4 +1,4 @@
-# Install MEP Concept on an Android tablet
+# Install MEP Concept Design Tool on an Android tablet
 
 The files must first be placed on an HTTPS website. GitHub Pages is a free way to do this and does not require a Mac.
 
@@ -23,10 +23,10 @@ The files must first be placed on an HTTPS website. GitHub Pages is a free way t
 
 1. On the tablet, open **Google Chrome**.
 2. Visit the GitHub Pages address from Part 1.
-3. Confirm the MEP Concept project screen opens.
+3. Confirm the MEP Concept Design Tool project screen opens.
 4. Tap Chrome's **three-dot menu**.
 5. Tap **Add to Home screen**, then **Install**. On some versions of Chrome the menu item is labelled **Install app**.
-6. Return to the home screen or app drawer and open the **MEP Concept** icon.
+6. Return to the home screen or app drawer and open the **MEP Concept Design Tool** icon.
 7. Open the app once while connected to the internet. The core app is then cached for offline use.
 
 ## Backups
